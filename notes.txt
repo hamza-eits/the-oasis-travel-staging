@@ -1,0 +1,1 @@
+ALTER TABLE `invoice_master` ADD `ReferenceNo` VARCHAR(255) NULL DEFAULT NULL AFTER `LeadID`;

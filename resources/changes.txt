@@ -1,0 +1,47 @@
+ALTER TABLE `invoice_detail` ADD `TicketNo` VARCHAR(255) NULL AFTER `Passport`;
+
+
+create or replace view v_invoice_detail2 as
+SELECT
+  `item`.`ItemID` AS `ItemID`,
+  `item`.`ItemType` AS `ItemType`,
+  `item`.`ItemCode` AS `ItemCode`,
+  `item`.`ItemName` AS `ItemName`,
+  `invoice_detail`.`InvoiceDetailID` AS `InvoiceDetailID`,
+  `invoice_detail`.`InvoiceMasterID` AS `InvoiceMasterID`,
+  `invoice_detail`.`SupplierID` AS `SupplierID`,
+  `invoice_detail`.`VisaType` AS `VisaType`,
+  `invoice_detail`.`PaxName` AS `PaxName`,
+   `invoice_detail`.`DepartureDate` AS `DepartureDate`,
+   `invoice_detail`.`TicketNo` AS `TicketNo`,
+  `invoice_detail`.`PNR` AS `PNR`,
+  `invoice_detail`.`Sector` AS `Sector`,
+  `invoice_detail`.`Fare` AS `Fare`,
+  `invoice_detail`.`RefNo` AS `RefNo`,
+  `invoice_detail`.`Taxable` AS `Taxable`,
+  `invoice_detail`.`Service` AS `Service`,
+  `invoice_detail`.`Discount` AS `Discount`,
+  `invoice_detail`.`Total` AS `Total`
+FROM
+  (`item` JOIN `invoice_detail` ON (`item`.`ItemID` = `invoice_detail`.`ItemID`)) SELECT
+  `item`.`ItemID` AS `ItemID`,
+  `item`.`ItemType` AS `ItemType`,
+  `item`.`ItemCode` AS `ItemCode`,
+  `item`.`ItemName` AS `ItemName`,
+  `invoice_detail`.`InvoiceDetailID` AS `InvoiceDetailID`,
+  `invoice_detail`.`InvoiceMasterID` AS `InvoiceMasterID`,
+  `invoice_detail`.`SupplierID` AS `SupplierID`,
+  `invoice_detail`.`VisaType` AS `VisaType`,
+  `invoice_detail`.`PaxName` AS `PaxName`,
+   `invoice_detail`.`DepartureDate` AS `DepartureDate`,
+   `invoice_detail`.`TicketNo` AS `TicketNo`,
+  `invoice_detail`.`PNR` AS `PNR`,
+  `invoice_detail`.`Sector` AS `Sector`,
+  `invoice_detail`.`Fare` AS `Fare`,
+  `invoice_detail`.`RefNo` AS `RefNo`,
+  `invoice_detail`.`Taxable` AS `Taxable`,
+  `invoice_detail`.`Service` AS `Service`,
+  `invoice_detail`.`Discount` AS `Discount`,
+  `invoice_detail`.`Total` AS `Total`
+FROM
+  (`item` JOIN `invoice_detail` ON (`item`.`ItemID` = `invoice_detail`.`ItemID`)) 

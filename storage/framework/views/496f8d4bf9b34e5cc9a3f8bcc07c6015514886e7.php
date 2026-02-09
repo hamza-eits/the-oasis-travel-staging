@@ -1,0 +1,239 @@
+
+
+<?php $__env->startSection('title', $pagetitle); ?>
+ 
+
+<?php $__env->startSection('content'); ?>
+
+ <div class="main-content">
+
+                <div class="page-content">
+                    <div class="container-fluid">
+
+<div class="row">
+  <div class="col-12">
+  
+  <?php if(session('error')): ?>
+
+ <div class="alert alert-<?php echo e(Session::get('class')); ?> p-1" id="success-alert">
+                    
+                   <?php echo e(Session::get('error')); ?>  
+                </div>
+
+<?php endif; ?>
+
+ <?php if(count($errors) > 0): ?>
+                                 
+                            <div >
+                <div class="alert alert-danger p-2 border-1">
+                   <p class="font-weight-bold"> There were some problems with your input.</p>
+                    <ul>
+                        
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><?php echo e($error); ?></li>
+
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </ul>
+                </div>
+                </div>
+ 
+            <?php endif; ?>
+
+            
+  <div class="card">
+      <div class="card-body">
+          <form action="<?php echo e(URL('/SaveSupplier')); ?>" method="post">
+        <?php echo e(csrf_field()); ?>
+
+<div>
+<div >
+
+<h4 class="card-title">Add Supplier</h4>
+<p class="card-title-desc"></p>
+
+ 
+
+
+
+<div class="mb-1 row">
+<label for="example-email-input" class="col-md-2 col-form-label fw-bold ">Supplier Category</label>
+<div class="col-md-4">
+<select name="SupplierCatID" id="SupplierCatID" class="form-select" >
+  <option value="">Select</option>
+  <?php foreach ($supplier_category as $key => $value): ?>
+    <option value="<?php echo e($value->SupplierCatID); ?>" <?php echo e(($value->SupplierCatID== old('SupplierCatID')) ? 'selected=selected':''); ?>><?php echo e($value->SupplierCode); ?>-<?php echo e($value->SupplierCategory); ?></option>
+  <?php endforeach ?>
+</select>
+</div>
+</div>
+<div class="mb-1 row">
+<label for="example-url-input" class="col-md-2 col-form-label fw-bold">Supplier Name</label>
+<div class="col-md-4">
+<input class="form-control" type="text"  value="<?php echo e(old('SupplierName')); ?>" name="SupplierName" >
+</div>
+
+</div>
+<div class="mb-1 row">
+<label for="example-url-input" class="col-md-2 col-form-label fw-bold">Address</label>
+<div class="col-md-4">
+<input class="form-control" type="text"  name="Address" value="<?php echo e(old('Address')); ?>"  >
+</div>
+
+</div>
+
+<div class="mb-1 row">
+<label for="example-url-input" class="col-md-2 col-form-label fw-bold">Phone</label>
+<div class="col-md-4">
+<input class="form-control" type="text"  name="Phone" value="<?php echo e(old('Phone')); ?>" >
+</div>
+
+</div>
+
+<div class="mb-1 row">
+<label for="example-url-input" class="col-md-2 col-form-label fw-bold">Email</label>
+<div class="col-md-4">
+<input class="form-control" type="text"  name="Email" value="<?php echo e(old('Email')); ?>"  >
+</div>
+
+</div>
+
+<div class="mb-1 row">
+<label for="example-url-input" class="col-md-2 col-form-label fw-bold">Invoice Due Days</label>
+<div class="col-md-4">
+<input class="form-control" type="number"  name="InvoiceDueDays" value="<?php echo e(old('InvoiceDueDays')); ?>" >
+</div>
+
+</div>
+ 
+  <div class="mb-1 row">
+<label for="example-tel-input" class="col-md-2 col-form-label fw-bold">Active</label>
+<div class="col-md-4">
+<select name="Active" class="form-select" >
+
+     
+    <option value="Yes" <?php echo e((old('Active')== 'Yes') ? 'selected=selected':''); ?>>Yes</option>
+    <option value="No" <?php echo e((old('Active')== 'No') ? 'selected=selected':''); ?>>No</option>
+    
+    
+
+
+</select> </div>
+ </div>
+ 
+
+
+ 
+ 
+                                      
+                                    
+                                   
+    
+                                      
+                                        
+
+                                       
+
+                                    </div>
+                                 
+                                </div>
+
+                         
+
+
+
+
+
+      </div>
+         <div class="card-footer bg-light bg-soft">
+                                       <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Submit</button>
+
+
+                                       
+                                       
+                <button type="reset" class="btn btn-outline-secondary waves-effect">Reset</button>
+                                    </div>
+  </div>
+                                <!-- card end here -->
+  </form>
+
+ <div class="row">
+      <div class="col-lg-12">
+          
+          <div class="card">
+              
+          <div class="card-body">
+            <h4 class="card-title ">Suppliers</h4>
+             <!-- <p class="card-title-desc"> Add <code>.table-sm</code> to make tables more compact by cutting cell padding in half.</p>  -->   
+                                        
+       <div class="table-responsive">
+        <table class="table  m-0" id="student_table">
+            <thead>
+               <tr>
+                 <th>Party Code</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Email</th>
+                 
+                <th>Invoice Due Days</th>
+                <th>Action</th>
+              </tr>
+             </thead>
+            <tbody>
+ 
+
+
+                  
+                <?php $__currentLoopData = $supplier; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+           <tr>
+    
+                <td scope="row"><?php echo e($value->SupplierID); ?></td>
+                <td><?php echo e($value->SupplierName); ?></td>
+                <td><?php echo e($value->Address); ?></td>
+                
+                <td><?php echo e($value->Phone); ?></td>
+                <td><?php echo e($value->Email); ?></td>
+                 
+                <td><?php echo e($value->Active); ?></td>
+                <td><div class="d-flex gap-1">
+        <a href="<?php echo e(URL('/SupplierEdit/'.$value->SupplierID)); ?>" class="text-secondary"><i class="mdi mdi-pencil font-size-15"></i></a>
+        <a href="#"  class="text-secondary" onclick="delete_confirm2('SupplierDelete',<?php echo e($value->SupplierID); ?>)"><i class="mdi mdi-delete font-size-15"></i></a>
+        <!-- <a href="<?php echo e(URL('/checkUserRole/'.$value->SupplierID)); ?>"  class="text-secondary"><i class="fas fa-user-lock
+ font-size-12"></i></a> -->
+                                                             </div> </td>
+                 
+            </tr>
+
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+             
+              </tbody>
+               </table>
+        
+                  </div>
+        
+                   </div>
+          </div>
+      </div>
+
+
+
+  </div>
+  
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+      
+    <!-- END: Content-->
+<script type="text/javascript">
+$(document).ready(function() {
+     $('#student_table').DataTable( );
+});
+</script>
+
+ 
+    
+  <?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.tmp', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\xampp88\htdocs\Falak-Travel\resources\views/supplier.blade.php ENDPATH**/ ?>

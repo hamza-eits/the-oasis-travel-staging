@@ -1,0 +1,2 @@
+
+INSERT INTO `user` (`UserID`, `FullName`, `Email`, `Password`, `branch_id`, `UserType`, `eDate`, `Active`) VALUES (NULL, 'Developer', 'developer@extbooks.com', 'Developer@1234%', NULL, 'Admin', current_timestamp(), 'Yes');
