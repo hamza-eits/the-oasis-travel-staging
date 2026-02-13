@@ -379,14 +379,6 @@ Route::get('AttachmentRead', [Accounts::class, 'AttachmentRead']);
 
 
  
-
-
-
-
-
-
- });
-
 route::get('/tmp/',[Accounts::class,'tmp']); 
 
 Route::get('/Logout',[Accounts::class,'Logout']);
@@ -635,4 +627,12 @@ Route::get('Backup', function () {
 
 
 	route::post('/invoice_knokoff/',[Accounts::class,'invoice_knokoff']);
+
+
+
+
+
+ });
+
+
 
