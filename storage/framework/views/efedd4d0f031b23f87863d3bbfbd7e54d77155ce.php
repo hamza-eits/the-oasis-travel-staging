@@ -1,9 +1,7 @@
-@extends('template.tmp')
-
-@section('title', $pagetitle)
+<?php $__env->startSection('title', $pagetitle); ?>
 
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 
 <style>
@@ -210,16 +208,12 @@ color: #5E5873;
     <div class="page-content">
 
         <div class="container-fluid">
-            {{-- <form action="modelVoucherSave" method="POST">
-                @csrf
-                <input type="text" value="1" name="value">
-                <button type="submit">Submit</button>
-            </form> --}}
+            
             <script>
                 function delete_invoice(id) {        
 
 
-                url = '{{URL::TO('/')}}/InvoiceDelete/'+ id;
+                url = '<?php echo e(URL::TO('/')); ?>/InvoiceDelete/'+ id;
         
     
        
@@ -235,7 +229,7 @@ color: #5E5873;
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">Invoice</h4>
-                        <a href="{{URL('/InvoiceCreate')}}" class="btn btn-primary w-md float-right "><i
+                        <a href="<?php echo e(URL('/InvoiceCreate')); ?>" class="btn btn-primary w-md float-right "><i
                                 class="bx bx-plus"></i> Add New</a>
 
 
@@ -249,31 +243,32 @@ color: #5E5873;
             <div class="row">
                 <div class="col-12">
 
-                    @if (session('error'))
+                    <?php if(session('error')): ?>
 
-                    <div class="alert alert-{{ Session::get('class') }} p-1" id="success-alert">
+                    <div class="alert alert-<?php echo e(Session::get('class')); ?> p-1" id="success-alert">
 
-                        {{ Session::get('error') }}
+                        <?php echo e(Session::get('error')); ?>
+
                     </div>
 
-                    @endif
+                    <?php endif; ?>
 
-                    @if (count($errors) > 0)
+                    <?php if(count($errors) > 0): ?>
 
                     <div>
                         <div class="alert alert-danger p-1   border-3">
                             <p class="font-weight-bold"> There were some problems with your input.</p>
                             <ul>
 
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
+                                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
 
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </ul>
                         </div>
                     </div>
 
-                    @endif
+                    <?php endif; ?>
 
 <?php 
 
@@ -284,10 +279,7 @@ $item = DB::table('item')->get();
                         <div class="card-body">
 
                             <div class="row">
-                                {{-- <div class="col-md-2">
-                                    <label for="item_name">Item Name:</label>
-                                    <input type="text" id="item_name" name="item_name" class="form-control">
-                                </div> --}}
+                                
 
                                 <div class="col-md-2">
                                     <label for="party_name">Party Name</label>
@@ -313,9 +305,9 @@ $item = DB::table('item')->get();
                                     <label for="date">Item:</label>
                                      <select name="ItemID" id="ItemID" class="form-select select2">
                                          <option value="">select</option>
-                                         @foreach($item as $value)
-                                         <option value="{{$value->ItemID}}">{{$value->ItemName}}</option>
-                                         @endforeach
+                                         <?php $__currentLoopData = $item; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                         <option value="<?php echo e($value->ItemID); ?>"><?php echo e($value->ItemName); ?></option>
+                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                      </select>
                                 </div>
 
@@ -327,9 +319,9 @@ $user = DB::table('user')->get();
                                     <label for="date">Saleman:</label>
                                      <select name="UserID" id="UserID" class="form-select select2">
                                          <option value="">select</option>
-                                         @foreach($user as $value)
-                                         <option value="{{$value->UserID}}">{{$value->FullName}}</option>
-                                         @endforeach
+                                         <?php $__currentLoopData = $user; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                         <option value="<?php echo e($value->UserID); ?>"><?php echo e($value->FullName); ?></option>
+                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                      </select>
                                 </div>
                                
@@ -367,7 +359,7 @@ $user = DB::table('user')->get();
                                             <th class="col-md-3">Invoice Type</th>
                                             <th class="col-md-3">Voucher</th>
                                             <th class="col-md-3">Mode</th>
-                                            {{-- <th class="col-md-3">Status</th> --}}
+                                            
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -401,8 +393,8 @@ $user = DB::table('user')->get();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 
-                <form method="POST" action="{{URL('modelVoucherSave')}}" enctype="multipart/form-data">
-                    @csrf
+                <form method="POST" action="<?php echo e(URL('modelVoucherSave')); ?>" enctype="multipart/form-data">
+                    <?php echo csrf_field(); ?>
                     <div class="modal-body">
                         <div class="mb-3 row">
                             <label for="customerName" class="col-md-2 col-form-label fw-bold">Customer Name</label>
@@ -423,7 +415,7 @@ $user = DB::table('user')->get();
 
                         <div class="mb-3 row">
                             <label for="amountReceived" class="col-md-2 col-form-label fw-bold">Invoice Amount
-                                ({{ env('APP_CURRENCY') }} )</label>
+                                (<?php echo e(env('APP_CURRENCY')); ?> )</label>
                             <div class="col-md-4">
                                 <input class="form-control" type="text" id="Total" name="Total" value="" readonly="">
                             </div>
@@ -433,7 +425,7 @@ $user = DB::table('user')->get();
                         <div class="mb-3 row">
 
                             <label for="amountReceived" class="col-md-2 col-form-label fw-bold">Balance
-                                ({{ env('APP_CURRENCY') }} )</label>
+                                (<?php echo e(env('APP_CURRENCY')); ?> )</label>
                             <div class="col-md-4">
                                 <input class="form-control" type="text" id="balance" name="balance" value="" readonly="">
                             </div>
@@ -449,7 +441,7 @@ $user = DB::table('user')->get();
 
                         <div class="mb-0 row">
                             <label for="amountReceived" class="col-md-2 col-form-label fw-bold">Amount Received
-                                ({{ env('APP_CURRENCY') }} )</label>
+                                (<?php echo e(env('APP_CURRENCY')); ?> )</label>
                             <div class="col-md-4">
                                 <input class="form-control" required="" min="1" type="number" id="amountReceived" name="amount_received"
                                     value="" >
@@ -463,9 +455,9 @@ $user = DB::table('user')->get();
                             <div class="col-md-4 " id="bank_charges_div">
                                 <select name="ChartOfAccountID" id="ChartOfAccountID" class="form-select"
                                     style="width: 100% !important;">
-                                    @foreach($chartofaccount as $value)
-                                    <option  value="{{$value->ChartOfAccountID}}">{{$value->ChartOfAccountName}}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $chartofaccount; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option  value="<?php echo e($value->ChartOfAccountID); ?>"><?php echo e($value->ChartOfAccountName); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
 
                             </div>
@@ -488,7 +480,7 @@ $user = DB::table('user')->get();
                                         <input type="date" name="Date"  class="form-control"
                                           
                                             
-                                            value="{{date('Y-m-d')}}">
+                                            value="<?php echo e(date('Y-m-d')); ?>">
                                        
                                     </div>
                                 </div>
@@ -507,10 +499,7 @@ $user = DB::table('user')->get();
                         <hr>
                         <div class="mb-3 row">
                             <label for="deposit-to" class="col-md-2 col-form-label fw-bold">Deposit To</label>
-                            {{-- <div class="col-md-4">
-                                <select name="deposit_to" id="deposit-to" class="form-select">
-                                </select>
-                            </div> --}}
+                            
                             <div class="col-md-4">
                                 <select name="deposit_to" id="deposit-to" class="form-select"></select>
                             </div>
@@ -614,7 +603,7 @@ $user = DB::table('user')->get();
 
 
     <!-- END: Content-->
-    {{-- change deposit list according to payment mode select --}}
+    
    <script></script>
 
 
@@ -667,9 +656,9 @@ $user = DB::table('user')->get();
 <script>
      $(document).ready(function() {
             // Check if invoiceMasterID is present in the session and call the function
-            @if (session('invoiceMasterID'))
-                openInvoiceModal({{ session('invoiceMasterID') }});
-            @endif
+            <?php if(session('invoiceMasterID')): ?>
+                openInvoiceModal(<?php echo e(session('invoiceMasterID')); ?>);
+            <?php endif; ?>
         });
 </script>
 <script>
@@ -678,7 +667,7 @@ $user = DB::table('user')->get();
         
         // Fetch the invoice data using AJAX
         $.ajax({
-            url: '{{ url("get_specific_invoice") }}/' + invoiceMasterID,
+            url: '<?php echo e(url("get_specific_invoice")); ?>/' + invoiceMasterID,
             method: 'GET',
             success: function(response) {
                 // Populate modal fields with the fetched data
@@ -709,7 +698,7 @@ $user = DB::table('user')->get();
                     }
 
                 $('#Total').val(response.Total);
-                $('#print').attr('href', '{{ URL("/InvoicePDF") }}/' + response.InvoiceMasterID);
+                $('#print').attr('href', '<?php echo e(URL("/InvoicePDF")); ?>/' + response.InvoiceMasterID);
                 
                 // Show the modal
                 $('#paymentModal').modal('show');
@@ -726,7 +715,7 @@ $user = DB::table('user')->get();
         "processing": true,
         "serverSide": true,
         "ajax": {
-            "url": "{{ url('ajax_invoice') }}",
+            "url": "<?php echo e(url('ajax_invoice')); ?>",
             "data": function (d) {
                 d.item_name = $('#item_name').val();
                 d.party_name = $('#party_name').val();
@@ -851,7 +840,7 @@ $user = DB::table('user')->get();
     // Function to fetch and populate accounts based on selected payment mode
     // function getAccountsCategory(selectedMode) {
     //     $.ajax({
-    //         url: "{{ url('ajax_accounts_by_category') }}",
+    //         url: "<?php echo e(url('ajax_accounts_by_category')); ?>",
     //         method: 'GET',
     //         data: { category: selectedMode },
     //         success: function(response) {
@@ -869,7 +858,7 @@ $user = DB::table('user')->get();
 
     function getAccountsCategory(selectedMode) {
         $.ajax({
-            url: "{{ url('ajax_accounts_by_category') }}",
+            url: "<?php echo e(url('ajax_accounts_by_category')); ?>",
             method: 'GET',
             data: { category: selectedMode },
             success: function(response) {
@@ -943,7 +932,7 @@ paymentchecking();
 
         // Fetch the invoice data using AJAX
         $.ajax({
-            url: '{{ url("ajax_party_ledger") }}/' + partyid,
+            url: '<?php echo e(url("ajax_party_ledger")); ?>/' + partyid,
             method: 'GET',
             success: function(response) {
                 // Populate modal fields with the fetched data
@@ -1008,7 +997,7 @@ paymentchecking();
 
         // AJAX call to fetch the voucher number
         $.ajax({
-            url: "{{ url('ajax_get_voucher_number') }}", // Route to fetch voucher number
+            url: "<?php echo e(url('ajax_get_voucher_number')); ?>", // Route to fetch voucher number
             method: 'GET',
             data: { voucher_code: voucherCode }, // Pass voucher code as data
             success: function(response) {
@@ -1156,16 +1145,17 @@ $(this).hide();
 
  
   <!-- Plugins js -->
-  <script src="{{URL('/')}}/assets/libs/dropzone/dropzone-min.js"></script>
+  <script src="<?php echo e(URL('/')); ?>/assets/libs/dropzone/dropzone-min.js"></script>
   
   <!-- Form file upload init js -->
-  <script src="{{URL('/')}}/assets/js/pages/form-file-upload.init.js"></script>
+  <script src="<?php echo e(URL('/')); ?>/assets/js/pages/form-file-upload.init.js"></script>
 
-  <script src="{{URL('/')}}/assets/js/app.js"></script>
+  <script src="<?php echo e(URL('/')); ?>/assets/js/app.js"></script>
 
     <!-- BEGIN: Vendor JS-->
-    <script src="{{asset('assets/vendors/js/vendors.min.js')}}"></script>
+    <script src="<?php echo e(asset('assets/vendors/js/vendors.min.js')); ?>"></script>
     <!-- BEGIN Vendor JS-->
 
 
-    @endsection
+    <?php $__env->stopSection(); ?>
+<?php echo $__env->make('template.tmp', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\eits\the-oasis-travel-staging\resources\views/invoice.blade.php ENDPATH**/ ?>
